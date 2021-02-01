@@ -41,7 +41,7 @@
             // txtImageList
             // 
             this.txtImageList.Location = new System.Drawing.Point(19, 90);
-            this.txtImageList.Margin = new System.Windows.Forms.Padding(2);
+            this.txtImageList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtImageList.Multiline = true;
             this.txtImageList.Name = "txtImageList";
             this.txtImageList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -51,7 +51,7 @@
             // btnGenerate
             // 
             this.btnGenerate.Location = new System.Drawing.Point(344, 437);
-            this.btnGenerate.Margin = new System.Windows.Forms.Padding(2);
+            this.btnGenerate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(128, 40);
             this.btnGenerate.TabIndex = 1;
@@ -72,7 +72,7 @@
             // txtOutput
             // 
             this.txtOutput.Location = new System.Drawing.Point(59, 21);
-            this.txtOutput.Margin = new System.Windows.Forms.Padding(2);
+            this.txtOutput.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.Size = new System.Drawing.Size(388, 19);
             this.txtOutput.TabIndex = 3;
@@ -90,10 +90,10 @@
             // btnFldOutput
             // 
             this.btnFldOutput.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.btnFldOutput.Location = new System.Drawing.Point(451, 23);
-            this.btnFldOutput.Margin = new System.Windows.Forms.Padding(2);
+            this.btnFldOutput.Location = new System.Drawing.Point(450, 21);
+            this.btnFldOutput.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnFldOutput.Name = "btnFldOutput";
-            this.btnFldOutput.Size = new System.Drawing.Size(21, 21);
+            this.btnFldOutput.Size = new System.Drawing.Size(22, 19);
             this.btnFldOutput.TabIndex = 5;
             this.btnFldOutput.Text = "...";
             this.btnFldOutput.UseVisualStyleBackColor = true;
@@ -118,7 +118,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnGenerate);
             this.Controls.Add(this.txtImageList);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
             this.Text = "Dummy Img";
             this.ResumeLayout(false);
