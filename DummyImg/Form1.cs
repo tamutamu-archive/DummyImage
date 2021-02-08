@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -10,9 +12,10 @@ namespace DummyImg
         public Form1()
         {
             InitializeComponent();
+            this.rdoImage.Checked = true;
         }
 
-        private async Task doGenerateImage()
+        private async Task doGenerate(string type)
         {
             await Task.Run(() =>
             {
@@ -24,9 +27,16 @@ namespace DummyImg
 
                         foreach (var text in txtImageList.Lines)
                         {
-                            if (text.Length > 0)
+                            if (text.Length > 0 && !text.Equals("\\N"))
                             {
-                                generateImage(text, text);
+                                if (type == "image")
+                                {
+                                    generateImage(text, text);
+                                }
+                                else
+                                {
+                                    generatePdf(text, text);
+                                }
                                 progressBar2.Value = progressBar2.Value + 1;
                             }
                         }
@@ -72,6 +82,38 @@ namespace DummyImg
             }
         }
 
+        private void generatePdf(string fileName, string drawText)
+        {
+            var md = $@"
+# {drawText}
+";
+            var byteArray = Encoding.UTF8.GetBytes(md);
+            var stream = new MemoryStream(byteArray);
+
+            using (var reader = new System.IO.StreamReader(stream))
+            using (var writer = new System.IO.StreamWriter("result.html"))
+            {
+                CommonMark.CommonMarkConverter.Convert(reader, writer);
+            }
+
+            var html = CommonMark.CommonMarkConverter.Convert(md);
+            //Console.WriteLine(html);
+            //Console.ReadLine();
+
+            Byte[] result = null;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                var pdf = TheArtOfDev.HtmlRenderer.PdfSharp.PdfGenerator.GeneratePdf(html, PdfSharp.PageSize.A4);
+                pdf.Save(ms);
+                result = ms.ToArray();
+            }
+            using (BinaryWriter w = new BinaryWriter(File.OpenWrite(System.IO.Path.Combine(txtOutput.Text, fileName))))
+            {
+                w.Write(result);
+            }
+        }
+
+
         private void btnFldOutput_Click(object sender, EventArgs e)
         {
             if (fldOutput.ShowDialog(this) == DialogResult.OK)
@@ -82,8 +124,21 @@ namespace DummyImg
 
         private async void btnGenerate_Click(object sender, EventArgs e)
         {
-            await doGenerateImage();
+            if (this.rdoImage.Checked)
+            {
+                await doGenerate("image");
+            }
+            else
+            {
+                await doGenerate("pdf");
+            }
+
             MessageBox.Show("完了");
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
